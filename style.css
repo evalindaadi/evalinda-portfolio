@@ -1,0 +1,887 @@
+/* =====================================
+   1. BASIC SETTINGS
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --purple: #7c3aed;
+    --pink: #db2777;
+    --focus: #c2410c;          /* focus outline: enough contrast in light and dark */
+    --accent-text: #6d28d9;    /* purple text that passes 4.5:1 contrast */
+    --dark: #29213d;
+    --muted: #62586f;
+    --light: #fff8ff;
+    --white: #ffffff;
+    --border: #eadcf5;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.7;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+section {
+    scroll-margin-top: 90px;
+}
+
+/* =====================================
+   2. NAVIGATION BAR
+===================================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    max-width: 1150px;
+    margin: auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--purple);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--dark);
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+    color: var(--accent-text);
+}
+
+.menu-toggle {
+    display: none;
+    padding: 4px 8px;
+    border: none;
+    background: none;
+    color: var(--dark);
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* =====================================
+   3. BUTTONS AND FOCUS
+===================================== */
+
+.primary-button {
+    display: inline-block;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(
+        100deg,
+        var(--purple),
+        var(--pink)
+    );
+    color: #ffffff;            /* fixed white so it stays readable in dark mode */
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 22px #7c3aed25;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.primary-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px #7c3aed40;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 4px;
+}
+
+/* =====================================
+   4. HOME SECTION (HERO)
+===================================== */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 60px 5% 0;
+    background: linear-gradient(135deg, #e6dcff 0%, #fbe3ee 55%, #ffe9dc 100%);
+}
+
+.hero-blob {
+    position: absolute;
+    z-index: 0;
+    border-radius: 55% 45% 60% 40%;
+}
+
+.blob-one {
+    top: -140px;
+    left: -120px;
+    width: 420px;
+    height: 420px;
+    background: #d4bdf966;
+}
+
+.blob-two {
+    right: 4%;
+    bottom: -180px;
+    width: 520px;
+    height: 520px;
+    background: #f4aacf66;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    min-height: 580px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: end;
+    gap: 20px;
+}
+
+.hero-text {
+    align-self: center;
+    padding-bottom: 60px;
+    animation: coverAppear 0.9s ease both;
+}
+
+/* min-height stops the layout jumping while the typing effect runs */
+.cover-role {
+    min-height: 1.4em;
+    margin-bottom: 14px;
+    color: #5b2a86;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(52px, 7vw, 96px);
+    line-height: 1;
+    color: #3b1768;
+}
+
+.hero h1 span {
+    display: block;
+    color: #c71f66;
+}
+
+.hero-description {
+    max-width: 440px;
+    margin: 20px 0 28px;
+    color: #4d3a63;
+    font-size: 18px;
+}
+
+.hero-points {
+    display: flex;
+    gap: 32px;
+    margin-top: 36px;
+    list-style: none;
+}
+
+.hero-points li {
+    color: #4d2f72;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.hero-points span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 26px;
+}
+
+.hero-photo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* The negative margin hides the cut edge of the photo while it floats */
+.hero-image {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin-bottom: -24px;
+    animation: photoFloat 5s ease-in-out infinite;
+}
+
+.hero-note {
+    position: absolute;
+    top: 8%;
+    right: 0;
+    z-index: 2;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 20px;
+    line-height: 1.3;
+    color: #4a2478;
+    transform: rotate(-8deg);
+}
+
+/* =====================================
+   5. GENERAL SECTIONS
+===================================== */
+
+.section {
+    max-width: 1150px;
+    margin: auto;
+    padding: 80px 24px;
+}
+
+.section-label {
+    margin-bottom: 12px;
+    color: var(--accent-text);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.section h2 {
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1.3;
+    margin: 12px 0 20px;
+}
+
+.section-description,
+.section > p:not(.section-label) {
+    color: var(--muted);
+}
+
+.section-description {
+    margin-bottom: 25px;
+}
+
+.section h3 {
+    margin-top: 28px;
+    margin-bottom: 12px;
+}
+
+/* =====================================
+   6. PROJECT FILTER, SEARCH AND STATUS
+===================================== */
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 28px 0 15px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid #d8c7f4;
+    border-radius: 25px;
+    background-color: var(--white);
+    color: var(--purple);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s,
+                transform 0.3s;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    background-color: #f3e8ff;
+}
+
+.filter-btn.active {
+    background: linear-gradient(
+        100deg,
+        var(--purple),
+        var(--pink)
+    );
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.project-search {
+    width: 100%;
+    max-width: 450px;
+    margin: 24px 0;
+}
+
+.project-search label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.project-search input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d7c4ed;
+    border-radius: 12px;
+    background: var(--light);
+    color: var(--dark);
+    font: inherit;
+}
+
+.project-search input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+.filter-status {
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* =====================================
+   7. PROJECT CARDS
+===================================== */
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.project-empty {
+    grid-column: 1 / -1;
+    color: var(--muted);
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px #37204c0c;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 32px #7c3aed1c;
+}
+
+/* Cover colours are pastel, so the text on them stays dark in both themes */
+.project-cover {
+    width: 100%;
+    min-height: 165px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-shrink: 0;
+    color: #2c1747;
+}
+
+.project-number {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.project-cover-icon {
+    font-size: 54px;
+    line-height: 1;
+}
+
+.project-image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background: #f7f0ff;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 22px;
+}
+
+.project-category {
+    color: var(--accent-text);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.project-card h3 {
+    font-size: 19px;
+    line-height: 1.4;
+    margin: 12px 0;
+}
+
+.project-description {
+    color: var(--muted);
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--accent-text);
+    font-weight: bold;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+.project-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    gap: 6px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    line-height: 1.7;
+}
+
+.project-meta strong,
+.project-meta span {
+    display: block;
+}
+
+.project-contribution {
+    margin: auto 0 0;
+    padding: 12px;
+    border-left: 3px solid #9b4de0;
+    border-radius: 0 8px 8px 0;
+    background: #f7f0ff;
+    color: #443052;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.project-contribution strong {
+    font-weight: 700;
+}
+
+.project-contribution span {
+    font-weight: 400;
+}
+
+/* =====================================
+   8. ABOUT AND SKILLS
+===================================== */
+
+.about-section {
+    border-top: 1px solid #f1e5f8;
+}
+
+.about-section > p:not(.section-label) {
+    max-width: 850px;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+    list-style: none;
+}
+
+.skills-list li {
+    padding: 8px 16px;
+    border-radius: 25px;
+    background-color: #ede9fe;
+    color: #6d28d9;
+    font-weight: bold;
+}
+
+/* =====================================
+   9. CONTACT SECTION
+===================================== */
+
+.contact-section {
+    max-width: none;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        #ede9fe,
+        #fce7f3
+    );
+}
+
+.contact-section > p:not(.section-label) {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.contact-section .primary-button {
+    margin-top: 25px;
+}
+
+/* =====================================
+   10. FOOTER AND BACK-TO-TOP
+===================================== */
+
+footer {
+    padding: 25px;
+    text-align: center;
+    background-color: #29213d;
+    color: #ffffff;
+}
+
+/* Floating button: hidden until JS adds the .visible class */
+.back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 50;
+    padding: 10px 16px;
+    border-radius: 25px;
+    background-color: var(--purple);
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0 6px 18px #7c3aed40;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px);
+}
+
+/* =====================================
+   11. ANIMATIONS
+===================================== */
+
+@keyframes photoFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(1deg);
+    }
+}
+
+@keyframes coverAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================
+   12. JAVASCRIPT INTERACTION STYLES
+===================================== */
+
+.theme-toggle {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: var(--white);
+    color: var(--dark);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.nav-links a[aria-current="location"] {
+    color: var(--accent-text);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =====================================
+   13. DARK THEME
+===================================== */
+
+body.dark-theme {
+    --dark: #f5edff;
+    --muted: #d0c4e0;
+    --light: #171323;
+    --white: #241c33;
+    --border: #49365f;
+    --accent-text: #c4b5fd;    /* light purple text for dark backgrounds */
+    --focus: #fdba74;
+
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+body.dark-theme header {
+    background-color: #241c33;
+    border-color: var(--border);
+}
+
+body.dark-theme .logo {
+    color: var(--dark);
+}
+
+body.dark-theme .hero {
+    background: linear-gradient(
+        135deg,
+        #30204c,
+        #49223f,
+        #4b3028
+    );
+}
+
+body.dark-theme .hero-blob {
+    opacity: 0.35;
+}
+
+body.dark-theme .cover-role,
+body.dark-theme .hero-points li,
+body.dark-theme .hero-note {
+    color: #e9d5ff;
+}
+
+body.dark-theme .hero h1 {
+    color: #f5edff;
+}
+
+body.dark-theme .hero h1 span {
+    color: #ff7ab0;
+}
+
+body.dark-theme .hero-description {
+    color: #d0c4e0;
+}
+
+body.dark-theme .filter-btn {
+    color: #e9d5ff;
+    border-color: var(--border);
+}
+
+body.dark-theme .filter-btn:hover {
+    background-color: #3b2b52;
+}
+
+body.dark-theme .filter-btn.active {
+    background: linear-gradient(100deg, #7c3aed, #db2777);
+    color: #ffffff;
+}
+
+body.dark-theme .project-search input {
+    border-color: var(--border);
+}
+
+body.dark-theme .project-contribution {
+    background: #3b2b52;
+    color: #f5edff;
+    border-left-color: #c4b5fd;
+}
+
+body.dark-theme .skills-list li {
+    background-color: #3b2b52;
+    color: #e9d5ff;
+}
+
+body.dark-theme .contact-section {
+    background: linear-gradient(135deg, #30204c, #49223f);
+}
+
+/* =====================================
+   14. RESPONSIVE DESIGN
+===================================== */
+
+/* Tablet */
+@media (max-width: 850px) {
+    .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile menu and stacked hero (logo + 4 links + theme button do not fit below 800px) */
+@media (max-width: 800px) {
+    .navbar {
+        padding: 14px 18px;
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        width: 100%;
+        padding-top: 18px;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .hero {
+        padding: 40px 20px 0;
+    }
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        text-align: center;
+    }
+
+    .hero-text {
+        padding-bottom: 10px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-points {
+        justify-content: center;
+    }
+
+    .hero-image {
+        max-width: 380px;
+    }
+}
+
+/* Large phones */
+@media (max-width: 600px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 60px 20px;
+    }
+
+    .filter-buttons {
+        gap: 8px;
+    }
+
+    .filter-btn {
+        padding: 9px 15px;
+    }
+
+    .project-cover {
+        min-height: 135px;
+    }
+
+    .project-cover-icon {
+        font-size: 46px;
+    }
+
+    .project-content {
+        padding: 18px;
+    }
+
+    .hero-note {
+        right: 4%;
+        font-size: 16px;
+    }
+        .back-to-top {
+        right: 12px;
+        bottom: 12px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    .hero-points {
+        gap: 20px;
+    }
+
+    .hero-image {
+        max-width: 300px;
+    }
+}
+
+/* =====================================
+   15. ACCESSIBILITY: REDUCED MOTION
+===================================== */
+
+/* !important is needed here: class-based animations are more specific than "*",
+   so without it the hero animations would still run. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
