@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Evalinda's Multimedia Computing student portfolio">
+    <meta name="description" content="Explore Evalinda Miun's creative portfolio featuring multimedia projects, UI/UX design, web development and programming.">
     <title>Evalinda Miun | Creative Portfolio</title>
 
-    <!-- Placeholder favicon: stops the 404 error in the console. Replace with your own icon later. -->
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
     <header>
         <nav class="navbar" aria-label="Main navigation">
@@ -34,7 +34,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main" tabindex="-1">
         <!-- HOME -->
         <section id="home" class="hero">
             <div class="hero-blob blob-one" aria-hidden="true"></div>
@@ -63,9 +63,10 @@
                 <div class="hero-photo">
                     <p class="hero-note" aria-hidden="true">Student<br>Designer<br>Creator ♡</p>
                     <img class="hero-image"
+                         fetchpriority="high"
                          src="images/evalinda-cutout.webp"
                          alt="Evalinda Miun smiling with her hand resting on her cheek"
-                         width="800" height="900">
+                         width="800" height="946">
                 </div>
             </div>
         </section>
@@ -92,7 +93,7 @@
 
                 <button type="button" class="filter-btn"
                         data-category="Database" aria-pressed="false">Database</button>
-                        
+
                 <button type="button" class="filter-btn"
                         data-category="Game Development" aria-pressed="false">
                         Game Development
@@ -119,30 +120,54 @@
 
         </section>
 
-        <!-- ABOUT ME -->
-        <section id="about" class="section about-section">
-            <p class="section-label">GET TO KNOW ME</p>
-            <h2>About Me</h2>
+        
+       
+<!-- ABOUT ME -->
+<section id="about" class="section about-section">
+    <p class="section-label">GET TO KNOW ME</p>
+    <h2>About Me</h2>
 
-            <p>
-                I am a Multimedia Computing student at Universiti
-                Malaysia Sarawak (UNIMAS). I enjoy learning about
-                web development, UI/UX design and multimedia technology.
-                My goal is to combine creativity and technical skills
-                to build useful digital experiences.
-            </p>
+    <p>
+        I am a Multimedia Computing student at Universiti
+        Malaysia Sarawak (UNIMAS). I enjoy exploring the
+        connection between creativity and technology through
+        web development, UI/UX design and multimedia projects.
+    </p>
 
-            <h3>My Skills</h3>
+    <p>
+        Throughout my studies, I have gained experience in
+        designing user interfaces, developing applications,
+        working with databases and creating interactive projects.
+        I also enjoy collaborating with others and learning
+        new technologies through university assignments and
+        group projects.
+    </p>
 
-            <ul class="skills-list">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>Java Programming</li>
-                <li>UI/UX Design</li>
-                <li>Database Design</li>
-            </ul>
-        </section>
+    <p>
+        I aim to continue improving my technical and creative
+        skills while gaining more experience in the multimedia
+        and technology field. My goal is to create useful,
+        engaging and user-friendly digital experiences.
+    </p>
+
+    <h3>My Skills</h3>
+
+    <ul class="skills-list">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>Java Programming</li>
+        <li>UI/UX Design</li>
+        <li>Database Design</li>
+        <li>Figma</li>
+        <li>C/C++</li>
+        <li>OpenGL</li>
+        <li>PHP</li>
+        <li>MySQL</li>
+        <li>UML</li>
+    </ul>
+</section>
+
 
         <!-- CONTACT -->
         <section id="contact" class="section contact-section">
@@ -153,11 +178,22 @@
                 Thank you for visiting my portfolio!
                 Feel free to contact me about my work.
             </p>
-    
-            <a href="mailto:your-104077@siswa.unimas.my"
-               class="primary-button">
-                Send Me an Email
-            </a>
+
+            <div class="contact-actions">
+                <a href="mailto:104077@siswa.unimas.my"
+                   class="primary-button">
+                    Send Me an Email
+                </a>
+
+                <button type="button"
+                        id="copy-email"
+                        class="secondary-button"
+                        data-email="104077@siswa.unimas.my">
+                    Copy my email
+                </button>
+            </div>
+
+            <p id="copy-status" class="copy-status" aria-live="polite"></p>
         </section>
     </main>
 

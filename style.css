@@ -885,3 +885,53 @@ body.dark-theme .contact-section {
         transform: none;
     }
 }
+/* Copy Email Button */
+.secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 66px;
+    padding: 0 30px;
+    box-sizing: border-box;
+    border: 2px solid #c9a7ff;
+    border-radius: 50px;
+    background: transparent;
+    color: #c9a7ff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Mouse hover effect */
+.secondary-button:hover {
+    background: #c9a7ff;
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+/* Click effect */
+.secondary-button:active {
+    transform: scale(0.95);
+}
+
+/* After email is copied successfully */
+.secondary-button.copied {
+    background: #c9a7ff;
+    color: #ffffff;
+    border-color: #c9a7ff;
+}
+
+/* Keep both contact buttons the same size */
+.contact-actions .primary-button,
+.contact-actions .secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 66px;
+    box-sizing: border-box;
+    padding: 0 25px;
+    font-size: 18px;
+    line-height: 1;
+}

@@ -1,63 +1,25 @@
 "use strict";
 
 /* =====================================
-   1. FOOTER YEAR
+   1. SETTINGS
 ===================================== */
 
-const yearElement = document.getElementById("current-year");
+// Must match the mobile menu breakpoint in style.css
+const MOBILE_BREAKPOINT = 800;
 
-if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-}
+const THEME_STORAGE_KEY = "portfolio-theme";
+const COPY_MESSAGE_DURATION = 4000;
 
-/* =====================================
-   2. MOBILE NAVIGATION
-===================================== */
-
-const menuToggle = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector(".nav-links");
-
-function closeMobileMenu() {
-    if (!menuToggle || !navLinks) return;
-
-    navLinks.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open navigation menu");
-    menuToggle.textContent = "☰";
-}
-
-if (menuToggle && navLinks) {
-    menuToggle.addEventListener("click", function () {
-        const isOpen = navLinks.classList.toggle("open");
-
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-        menuToggle.setAttribute(
-            "aria-label",
-            isOpen ? "Close navigation menu" : "Open navigation menu"
-        );
-
-        menuToggle.textContent = isOpen ? "✕" : "☰";
-    });
-
-    navLinks.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", closeMobileMenu);
-    });
-
-    // Close the menu when the screen becomes wider than the mobile breakpoint (same as the CSS)
-    window.addEventListener("resize", function () {
-        if (window.innerWidth > 800) {
-            closeMobileMenu();
-        }
-    });
-}
+const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+).matches;
 
 /* =====================================
-   3. PROJECT DATA
+   2. PROJECT DATA
 ===================================== */
 
 const projects = [
     {
-        icon: "💬",
         title: "SENADA Language Learning App",
         category: "UI/UX",
         description:
@@ -67,12 +29,12 @@ const projects = [
         contribution:
             "Designed the sign up, forgot password, AI voice chat, flashcards and streaks screens in Figma, and helped prepare the presentation slides.",
         link: "https://www.figma.com/proto/tomiU3OqhCkOg5jDS0BWGS/STDGX-FIGMA-PROTOTYPE?node-id=0-1&t=VqFMvObro8beeh29-1",
+        linkLabel: "View Figma prototype",
         image: "images/senada.webp",
         imageAlt: "Three Figma screens of the SENADA app: an AI voice chat in a restaurant scenario, a flashcard for the greeting 'Apa khabar kitak?', and a 5-day learning streak.",
         cover: "linear-gradient(135deg, #e5d7ff, #f9c9e0)"
     },
     {
-        icon: "🚈",
         title: "ART Transport App",
         category: "UI/UX",
         description:
@@ -80,72 +42,224 @@ const projects = [
         type: "Group project — UI/UX course",
         tools: "Figma",
         contribution:
-            "Designed the screen for filtering places of interest on the map in Figma and prepare the final report.",
+            "Designed the screen for filtering places of interest on the map in Figma and prepared the final report.",
         link: "https://www.figma.com/proto/hPwjDmrZ3k6cUIwG5VZcGQ/TMT-2073---Project?node-id=0-1&t=c8rLA6J70jd6CEQQ-1",
+        linkLabel: "View Figma prototype",
         image: "images/art.webp",
-        // imageAlt: "Three Figma screens of the ART app: the interactive map, the filter for places of interest, and ticket booking.",
+        imageAlt: "Three Figma screens of the ART app: the interactive map, the filter for places of interest, and ticket booking.",
         cover: "linear-gradient(135deg, #d8ecff, #c8f1e5)"
     },
-   {
-    icon: "🧠",
-    title: "Health Education Application",
-    category: "Java",
-    description:
-        "A desktop application built in Java for SDG 3 (Health Education), helping users learn about health through quizzes and interactive learning activities.",
-    type: "Group project — Java Programming course",
-    tools: "Visual Studio Code and UML",
-    contribution:
-        "Developed the Quiz Engine module (the HealthQuiz / Evaluatable interface), fixed a double-points scoring bug and data persistence issues, and created the UML diagrams and submission documents.",
-    image: "images/healthquiz.webp",
-    imageAlt: "Screenshot of the Health Quiz desktop application showing a quiz question and scoring",
-    cover: "linear-gradient(135deg, #ffd9ec, #ffebd4)"
+    {
+        title: "Health Education Application",
+        category: "Java",
+        description:
+            "A desktop application built in Java for SDG 3 (Health Education), helping users learn about health through quizzes and interactive learning activities.",
+        type: "Group project — Java Programming course",
+        tools: "Visual Studio Code and UML",
+        contribution:
+            "A Java desktop application developed to promote health education through interactive quizzes. It includes a quiz engine that evaluates users' answers, calculates scores and supports learning through health-related questions.",
+        image: "images/healthquiz.webp",
+        imageAlt: "Screenshot of the Health Quiz desktop application showing a quiz question and scoring.",
+        cover: "linear-gradient(135deg, #ffd9ec, #ffebd4)"
     },
-   {
-    icon: "🏺",
-    title: "Sarawak Heritage Online Auction (SHAA)",
-    category: "Database",
-    description:
-        "SHAA is a database-driven auction management system for Sarawak heritage items. It supports user management, auction item management, category management, and reports for registered users, bidding records, completed orders, and popular auction items.",
-    type: "Group project — Database Concept and Design course",
-    tools: "PHP, MySQL, phpMyAdmin",
-    contribution:
-        "Worked on the database and system features for managing users, auction items, categories, and reports.",
-    link: "",
-    image: "images/shaa-auction-items.webp",
-    imageAlt: "SHAA auction item management page showing item names, sellers, categories, current prices, statuses, and update and delete actions.",
-    cover: "linear-gradient(135deg, #f3dfbd, #c9a879)"
-   },
-   
-{
-    icon: "🎮",
-    title: "Stickman Environmental Quest",
-    category: "Game Development",
-    description:
-        "Stickman Environmental Quest is a 2D retro-inspired game developed for the Computer Graphics course. Built using C/C++ and OpenGL, the game focuses on environmental conservation and features player controls, enemies, a scoring system, health indicators, and game levels.",
-    type: "Group Project — Computer Graphic course",
-    tools: "C/C++, OpenGL",
-    contribution:
-        "Contributed to coding the game using C/C++ and OpenGL, and participated in preparing and delivering the project presentation.",
-    image: "images/stickman-environmental-quest.webp",
-    imageAlt: "Stickman Environmental Quest gameplay showing the player character, enemies, score, health indicators, and Level 1 in a forest environment.",
-    cover: "linear-gradient(135deg, #c8e6c9, #81c784)"
-},
-
+    {
+        title: "Sarawak Heritage Online Auction (SHAA)",
+        category: "Database",
+        description:
+            "SHAA is a database-driven auction management system for Sarawak heritage items. It manages auction items, users and categories, while providing reports on bidding records, completed orders and popular auction items using PHP and MySQL.",
+        type: "Group project — Database Concept and Design course",
+        tools: "PHP, MySQL, phpMyAdmin",
+        contribution:
+            "Worked on the database and system features for managing users, auction items, categories, and reports.",
+        image: "images/shaa-auction-items.webp",
+        imageAlt: "SHAA auction item management page showing item names, sellers, categories, current prices, statuses, and update and delete actions.",
+        cover: "linear-gradient(135deg, #f3dfbd, #c9a879)"
+    },
+    {
+        title: "Stickman Environmental Quest",
+        category: "Game Development",
+        description:
+            "Stickman Environmental Quest is a 2D retro-inspired game developed for the Computer Graphics course. Built using C/C++ and OpenGL, the game focuses on environmental conservation and features player controls, enemies, a scoring system, health indicators, and game levels.",
+        type: "Group project — Computer Graphics course",
+        tools: "C/C++, OpenGL",
+        contribution:
+            "Contributed to coding the game using C/C++ and OpenGL, and participated in preparing and delivering the project presentation.",
+        image: "images/stickman-environmental-quest.webp",
+        imageAlt: "Stickman Environmental Quest gameplay showing the player character, enemies, score, health indicators, and Level 1 in a forest environment.",
+        cover: "linear-gradient(135deg, #c8e6c9, #81c784)"
+    }
 ];
 
+// Current filter state, shared by the category buttons and the search box
+const projectFilters = {
+    category: "All",
+    query: ""
+};
+
 /* =====================================
-   4. DISPLAY PROJECT CARDS
+   3. FEATURE: FOOTER YEAR
 ===================================== */
 
-const projectList = document.getElementById("project-list");
-const filterStatus = document.getElementById("filter-status");
-const filterButtons = document.querySelectorAll(".filter-btn");
-const projectSearch = document.getElementById("project-search-input");
+function initFooterYear() {
+    const yearElement = document.getElementById("current-year");
 
-let selectedCategory = "All";
-let searchQuery = "";
+    if (!yearElement) return;
+
+    yearElement.textContent = new Date().getFullYear();
+}
+
+/* =====================================
+   4. FEATURE: MOBILE NAVIGATION
+===================================== */
+
+function initMobileMenu() {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (!menuToggle || !navLinks) return;
+
+    function setMenuOpen(isOpen) {
+        navLinks.classList.toggle("open", isOpen);
+
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+        menuToggle.textContent = isOpen ? "✕" : "☰";
+    }
+
+    menuToggle.addEventListener("click", function () {
+        setMenuOpen(!navLinks.classList.contains("open"));
+    });
+
+    // Close the menu after choosing a link
+    navLinks.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+            setMenuOpen(false);
+        });
+    });
+
+    // Close the menu when the screen becomes wider than the mobile breakpoint
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > MOBILE_BREAKPOINT) {
+            setMenuOpen(false);
+        }
+    });
+}
+
+/* =====================================
+   5. FEATURES: PROJECT CARDS, FILTER AND SEARCH
+===================================== */
+
+function createProjectCard(project, index) {
+    const card = document.createElement("article");
+    card.className = "project-card";
+
+    // Coloured cover (used when the project has no screenshot, or the screenshot fails to load)
+    const cover = document.createElement("div");
+    cover.className = "project-cover";
+    cover.style.background = project.cover;
+
+    const number = document.createElement("span");
+    number.className = "project-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+
+    const icon = document.createElement("span");
+    icon.className = "project-cover-icon";
+    icon.textContent = project.icon;
+    icon.setAttribute("aria-hidden", "true");
+
+    cover.append(number, icon);
+
+    // Text content
+    const content = document.createElement("div");
+    content.className = "project-content";
+
+    const category = document.createElement("span");
+    category.className = "project-category";
+    category.textContent = project.category;
+
+    const title = document.createElement("h3");
+    title.textContent = project.title;
+
+    const description = document.createElement("p");
+    description.className = "project-description";
+    description.textContent = project.description;
+
+    const meta = document.createElement("div");
+    meta.className = "project-meta";
+
+    const groupLabel = document.createElement("strong");
+    groupLabel.textContent = project.type;
+
+    const toolsLabel = document.createElement("span");
+    toolsLabel.textContent = "Tools: " + project.tools;
+
+    meta.append(groupLabel, toolsLabel);
+
+    if (project.contribution) {
+        const contributionBox = document.createElement("p");
+        contributionBox.className = "project-contribution";
+
+        const label = document.createElement("strong");
+        label.textContent = "My Contribution: ";
+
+        const details = document.createElement("span");
+        details.textContent = project.contribution;
+
+        contributionBox.append(label, details);
+        meta.appendChild(contributionBox);
+    }
+
+    content.append(category, title, description, meta);
+
+    // Optional link (only shown if the project has one)
+    if (project.link) {
+        const linkText = project.linkLabel || "View project";
+
+        const projectLink = document.createElement("a");
+        projectLink.className = "project-link";
+        projectLink.href = project.link;
+        projectLink.target = "_blank";
+        projectLink.rel = "noopener noreferrer";
+        projectLink.textContent = linkText + " ↗";
+        projectLink.setAttribute(
+            "aria-label",
+            linkText + " for " + project.title + " (opens in a new tab)"
+        );
+
+        content.appendChild(projectLink);
+    }
+
+    // Use the screenshot if the project has one, otherwise the coloured cover
+    let top = cover;
+
+    if (project.image) {
+        const screenshot = document.createElement("img");
+        screenshot.className = "project-image";
+        screenshot.src = project.image;
+        screenshot.alt = project.imageAlt || project.title;
+        screenshot.width = 900;
+        screenshot.height = 644;
+        screenshot.loading = "lazy";
+
+        // Error handling: if the screenshot cannot load, show the coloured cover instead
+        screenshot.addEventListener("error", function () {
+            screenshot.replaceWith(cover);
+        });
+
+        top = screenshot;
+    }
+
+    card.append(top, content);
+
+    return card;
+}
 
 function displayProjects(projectItems) {
+    const projectList = document.getElementById("project-list");
+
     if (!projectList) return;
 
     projectList.replaceChildren();
@@ -161,111 +275,17 @@ function displayProjects(projectItems) {
     }
 
     projectItems.forEach(function (project, index) {
-        const card = document.createElement("article");
-        card.className = "project-card";
-
-        const cover = document.createElement("div");
-        cover.className = "project-cover";
-        cover.style.background = project.cover;
-
-        const number = document.createElement("span");
-        number.className = "project-number";
-        number.textContent = String(index + 1).padStart(2, "0");
-
-        const icon = document.createElement("span");
-        icon.className = "project-cover-icon";
-        icon.textContent = project.icon;
-        icon.setAttribute("aria-hidden", "true");
-
-        cover.append(number, icon);
-
-        const content = document.createElement("div");
-        content.className = "project-content";
-
-        const category = document.createElement("span");
-        category.className = "project-category";
-        category.textContent = project.category;
-
-        const title = document.createElement("h3");
-        title.textContent = project.title;
-
-        const description = document.createElement("p");
-        description.className = "project-description";
-        description.textContent = project.description;
-
-        const meta = document.createElement("div");
-        meta.className = "project-meta";
-
-        const groupLabel = document.createElement("strong");
-        groupLabel.textContent = project.type;
-
-        const toolsLabel = document.createElement("span");
-        toolsLabel.textContent = "Tools: " + project.tools;
-
-        meta.appendChild(groupLabel);
-        meta.appendChild(toolsLabel);
-
-        if (project.contribution) {
-            const contributionLabel = document.createElement("p");
-            contributionLabel.className = "project-contribution";
-
-            const label = document.createElement("strong");
-            label.textContent = "My Contribution: ";
-
-            const details = document.createElement("span");
-            details.textContent = project.contribution;
-
-            contributionLabel.append(label, details);
-            meta.appendChild(contributionLabel);
-        }
-
-        content.append(category, title, description, meta);
-
-        // Link to the Figma prototype (only shown if the project has a link)
-        if (project.link) {
-            const prototypeLink = document.createElement("a");
-            prototypeLink.className = "project-link";
-            prototypeLink.href = project.link;
-            prototypeLink.target = "_blank";
-            prototypeLink.rel = "noopener noreferrer";
-            prototypeLink.textContent = "View Figma prototype ↗";
-            prototypeLink.setAttribute(
-                "aria-label",
-                "View Figma prototype for " + project.title + " (opens in a new tab)"
-            );
-            content.appendChild(prototypeLink);
-        }
-
-        // Use the screenshot if the project has one, otherwise the coloured cover
-        let top = cover;
-
-        if (project.image) {
-            const screenshot = document.createElement("img");
-            screenshot.className = "project-image";
-            screenshot.src = project.image;
-            screenshot.alt = project.imageAlt;
-            screenshot.width = 900;
-            screenshot.height = 644;
-            screenshot.loading = "lazy";
-            top = screenshot;
-        }
-
-        card.append(top, content);
-        projectList.appendChild(card);
+        projectList.appendChild(createProjectCard(project, index));
     });
 }
 
-/* =====================================
-   5. FILTER AND SEARCH PROJECTS
-===================================== */
+function getFilteredProjects() {
+    const query = projectFilters.query.toLowerCase();
 
-function updateProjects() {
-    const query = searchQuery.toLowerCase();
-
-    const filteredProjects = projects.filter(function (project) {
+    return projects.filter(function (project) {
         const matchesCategory =
-            selectedCategory === "All" ||
-            project.category === selectedCategory;
+            projectFilters.category === "All" ||
+            project.category === projectFilters.category;
 
         const searchableText = [
             project.title,
@@ -275,68 +295,81 @@ function updateProjects() {
             project.tools
         ].join(" ").toLowerCase();
 
-        const matchesSearch = searchableText.includes(query);
-
-        return matchesCategory && matchesSearch;
+        return matchesCategory && searchableText.includes(query);
     });
+}
 
-    displayProjects(filteredProjects);
-
-    filterButtons.forEach(function (button) {
-        const isActive =
-            button.dataset.category === selectedCategory;
+function updateFilterButtons() {
+    document.querySelectorAll(".filter-btn").forEach(function (button) {
+        const isActive = button.dataset.category === projectFilters.category;
 
         button.classList.toggle("active", isActive);
         button.setAttribute("aria-pressed", String(isActive));
     });
+}
 
-    if (filterStatus) {
-        filterStatus.textContent =
-            "Showing " + filteredProjects.length +
-            (filteredProjects.length === 1 ? " project" : " projects") +
-            (selectedCategory === "All"
-                ? ""
-                : " in " + selectedCategory) +
-            (searchQuery ? ' matching "' + searchQuery + '"' : "") +
-            ".";
+function updateFilterStatus(resultCount) {
+    const filterStatus = document.getElementById("filter-status");
+
+    if (!filterStatus) return;
+
+    filterStatus.textContent =
+        "Showing " + resultCount +
+        (resultCount === 1 ? " project" : " projects") +
+        (projectFilters.category === "All"
+            ? ""
+            : " in " + projectFilters.category) +
+        (projectFilters.query
+            ? ' matching "' + projectFilters.query + '"'
+            : "") +
+        ".";
+}
+
+function updateProjects() {
+    const filteredProjects = getFilteredProjects();
+
+    displayProjects(filteredProjects);
+    updateFilterButtons();
+    updateFilterStatus(filteredProjects.length);
+}
+
+function initProjects() {
+    const searchInput = document.getElementById("project-search-input");
+
+    document.querySelectorAll(".filter-btn").forEach(function (button) {
+        button.addEventListener("click", function () {
+            projectFilters.category = button.dataset.category;
+            updateProjects();
+        });
+    });
+
+    if (searchInput) {
+        searchInput.addEventListener("input", function () {
+            projectFilters.query = searchInput.value.trim();
+            updateProjects();
+        });
     }
+
+    updateProjects();
 }
-
-filterButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        selectedCategory = button.dataset.category;
-        updateProjects();
-    });
-});
-
-if (projectSearch) {
-    projectSearch.addEventListener("input", function () {
-        searchQuery = projectSearch.value.trim();
-        updateProjects();
-    });
-}
-
-updateProjects();
 
 /* =====================================
-   6. SCROLL REVEAL
+   6. FEATURE: SCROLL REVEAL
 ===================================== */
 
-const revealElements = document.querySelectorAll(
-    ".section-label, .section h2, .project-card, .about-section h3"
-);
+function initScrollReveal() {
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) return;
 
-const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-).matches;
+    const revealElements = document.querySelectorAll(
+        ".section-label, .section h2, .project-card, .about-section h3"
+    );
 
-if ("IntersectionObserver" in window && !reducedMotion) {
-    const revealObserver = new IntersectionObserver(
-        function (entries, observer) {
+    const observer = new IntersectionObserver(
+        function (entries, revealObserver) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("revealed");
-                    observer.unobserve(entry.target);
+                    revealObserver.unobserve(entry.target);
                 }
             });
         },
@@ -345,129 +378,147 @@ if ("IntersectionObserver" in window && !reducedMotion) {
 
     revealElements.forEach(function (element) {
         element.classList.add("reveal");
-
-        revealObserver.observe(element);
+        observer.observe(element);
     });
 }
 
 /* =====================================
-   7. ACTIVE NAVIGATION LINK
+   7. FEATURE: ACTIVE NAVIGATION LINK
 ===================================== */
 
-const pageSections = document.querySelectorAll("main section[id]");
-const navigationLinks = document.querySelectorAll(
-    '.nav-links a[href^="#"]'
-);
+function initActiveNavLink() {
+    const pageSections = document.querySelectorAll("main section[id]");
+    const navigationLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 
-// Marks one nav link as the current one (used by the observer and the bottom-of-page check)
-function setCurrentLink(sectionId) {
-    navigationLinks.forEach(function (link) {
-        const isCurrent =
-            link.getAttribute("href") === "#" + sectionId;
+    if (pageSections.length === 0 || navigationLinks.length === 0) return;
 
-        if (isCurrent) {
-            link.setAttribute("aria-current", "location");
-        } else {
-            link.removeAttribute("aria-current");
+    // Marks one nav link as the current one
+    function setCurrentLink(sectionId) {
+        navigationLinks.forEach(function (link) {
+            const isCurrent = link.getAttribute("href") === "#" + sectionId;
+
+            if (isCurrent) {
+                link.setAttribute("aria-current", "location");
+            } else {
+                link.removeAttribute("aria-current");
+            }
+        });
+    }
+
+    if ("IntersectionObserver" in window) {
+        const sectionObserver = new IntersectionObserver(
+            function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        setCurrentLink(entry.target.id);
+                    }
+                });
+            },
+            { rootMargin: "-30% 0px -60% 0px" }
+        );
+
+        pageSections.forEach(function (section) {
+            sectionObserver.observe(section);
+        });
+    }
+
+    // The Contact section is short, so it may never reach the observer band.
+    // When the user is at the very bottom of the page, highlight Contact.
+    window.addEventListener("scroll", function () {
+        const atBottom =
+            window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight - 5;
+
+        if (atBottom) {
+            setCurrentLink("contact");
         }
-    });
+    }, { passive: true });
 }
 
-if ("IntersectionObserver" in window) {
-    const sectionObserver = new IntersectionObserver(
-        function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
+/* =====================================
+   8. FEATURE: THEME TOGGLE (SAVED WITH LOCALSTORAGE)
+===================================== */
 
-                setCurrentLink(entry.target.id);
-            });
-        },
-        { rootMargin: "-30% 0px -60% 0px" }
-    );
-
-    pageSections.forEach(function (section) {
-        sectionObserver.observe(section);
-    });
-}
-
-// The Contact section is short, so it may never reach the observer band.
-// When the user is at the very bottom of the page, highlight Contact.
-function checkPageBottom() {
-    const atBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 5;
-
-    if (atBottom) {
-        setCurrentLink("contact");
+// localStorage can be blocked (for example in private mode), so every access uses try/catch
+function readSavedTheme() {
+    try {
+        return localStorage.getItem(THEME_STORAGE_KEY);
+    } catch (error) {
+        return null;
     }
 }
 
-window.addEventListener("scroll", checkPageBottom, { passive: true });
-
-/* =====================================
-   8. THEME TOGGLE
-===================================== */
-
-const themeButton = document.createElement("button");
-
-themeButton.type = "button";
-themeButton.className = "theme-toggle";
-themeButton.textContent = "🌙 Dark mode";
-themeButton.setAttribute("aria-pressed", "false");
-themeButton.setAttribute("aria-label", "Switch to dark mode");
-
-const navbar = document.querySelector(".navbar");
-
-if (navbar) {
-    navbar.appendChild(themeButton);
+function saveTheme(theme) {
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (error) {
+        console.warn("The theme could not be saved:", error);
+    }
 }
 
-themeButton.addEventListener("click", function () {
-    const darkEnabled = document.body.classList.toggle("dark-theme");
+function initTheme() {
+    const navbar = document.querySelector(".navbar");
 
-    themeButton.textContent = darkEnabled
-        ? "☀️ Light mode"
-        : "🌙 Dark mode";
+    if (!navbar) return;
 
-    themeButton.setAttribute("aria-pressed", String(darkEnabled));
-    themeButton.setAttribute(
-        "aria-label",
-        darkEnabled ? "Switch to light mode" : "Switch to dark mode"
-    );
-});
+    const themeButton = document.createElement("button");
+    themeButton.type = "button";
+    themeButton.className = "theme-toggle";
+    navbar.appendChild(themeButton);
+
+    function applyTheme(isDark) {
+        document.body.classList.toggle("dark-theme", isDark);
+
+        themeButton.textContent = isDark ? "☀️ Light mode" : "🌙 Dark mode";
+        themeButton.setAttribute("aria-pressed", String(isDark));
+        themeButton.setAttribute(
+            "aria-label",
+            isDark ? "Switch to light mode" : "Switch to dark mode"
+        );
+    }
+
+    // Restore the theme the visitor chose last time
+    applyTheme(readSavedTheme() === "dark");
+
+    themeButton.addEventListener("click", function () {
+        const isDark = !document.body.classList.contains("dark-theme");
+
+        applyTheme(isDark);
+        saveTheme(isDark ? "dark" : "light");
+    });
+}
 
 /* =====================================
-   9. BACK-TO-TOP VISIBILITY
+   9. FEATURE: BACK-TO-TOP BUTTON
 ===================================== */
 
-const backToTop = document.querySelector(".back-to-top");
+function initBackToTop() {
+    const backToTop = document.querySelector(".back-to-top");
 
-function updateBackToTop() {
     if (!backToTop) return;
 
-    backToTop.classList.toggle("visible", window.scrollY > 300);
+    function updateVisibility() {
+        backToTop.classList.toggle("visible", window.scrollY > 300);
+    }
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    updateVisibility();
 }
 
-window.addEventListener("scroll", updateBackToTop, {
-    passive: true
-});
-
-updateBackToTop();
-
 /* =====================================
-   10. TYPING EFFECT
+   10. FEATURE: TYPING EFFECT
 ===================================== */
 
-// Types out the role text in the hero (the element with class "cover-role")
-const coverRole = document.querySelector(".cover-role");
+function initTypingEffect() {
+    const coverRole = document.querySelector(".cover-role");
 
-if (coverRole && !reducedMotion) {
+    if (!coverRole || prefersReducedMotion) return;
+
     const roleText = coverRole.textContent.trim();
     let characterIndex = 0;
 
     // Screen readers read the full text instead of the partial typing
     coverRole.setAttribute("aria-label", roleText);
-
     coverRole.textContent = "";
 
     function typeNextCharacter() {
@@ -481,3 +532,71 @@ if (coverRole && !reducedMotion) {
 
     window.setTimeout(typeNextCharacter, 400);
 }
+
+/* =====================================
+   11. FEATURE: COPY EMAIL BUTTON
+===================================== */
+
+function initCopyEmail() {
+    const copyButton = document.getElementById("copy-email");
+    const copyStatus = document.getElementById("copy-status");
+
+    if (!copyButton || !copyStatus) return;
+
+    let clearTimer;
+
+    // Shows a message for a few seconds (the status area is aria-live, so screen readers announce it)
+    function showMessage(message) {
+        copyStatus.textContent = message;
+
+        window.clearTimeout(clearTimer);
+        clearTimer = window.setTimeout(function () {
+            copyStatus.textContent = "";
+        }, COPY_MESSAGE_DURATION);
+    }
+
+    copyButton.addEventListener("click", async function () {
+        const email = copyButton.dataset.email;
+
+        try {
+            if (!navigator.clipboard) {
+                throw new Error("Clipboard is not available");
+            }
+
+            await navigator.clipboard.writeText(email);
+            showMessage("Email copied: " + email);
+        } catch (error) {
+            showMessage("Could not copy automatically. Please copy it manually: " + email);
+        }
+    });
+}
+
+/* =====================================
+   12. START EVERYTHING
+===================================== */
+
+// Each feature runs inside try/catch, so one failing feature cannot stop the others.
+// The order matters: project cards must exist before the scroll reveal looks for them.
+function init() {
+    const features = [
+        initFooterYear,
+        initMobileMenu,
+        initProjects,
+        initScrollReveal,
+        initActiveNavLink,
+        initTheme,
+        initBackToTop,
+        initTypingEffect,
+        initCopyEmail
+    ];
+
+    features.forEach(function (feature) {
+        try {
+            feature();
+        } catch (error) {
+            console.error("Feature failed: " + feature.name, error);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", init);
