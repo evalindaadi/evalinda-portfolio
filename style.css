@@ -524,7 +524,9 @@ button:focus-visible {
 
 .about-section > p:not(.section-label) {
     max-width: 850px;
+    margin-bottom: 14px;
 }
+
 
 .skills-list {
     display: flex;
@@ -868,8 +870,7 @@ body.dark-theme .contact-section {
    15. ACCESSIBILITY: REDUCED MOTION
 ===================================== */
 
-/* !important is needed here: class-based animations are more specific than "*",
-   so without it the hero animations would still run. */
+/* Stop animations for users who prefer less motion. */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

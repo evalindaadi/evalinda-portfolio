@@ -24,7 +24,7 @@ const projects = [
         category: "UI/UX",
         description:
             "SENADA is a mobile app prototype for reviving Sarawak Malay in the digital era, designed around SDG 4 (Quality Education). Learners practise speaking through AI voice chat in real-life scenarios, revise phrases with audio flashcards, and keep motivated with daily streaks and Culture Coins.",
-        type: "BorNEO HackWknd — Top 20 Finalist (team of 4)",
+        type: "BorNEO HackWknd - Top 20 Finalist",
         tools: "Figma",
         contribution:
             "Designed the sign up, forgot password, AI voice chat, flashcards and streaks screens in Figma, and helped prepare the presentation slides.",
@@ -39,7 +39,7 @@ const projects = [
         category: "UI/UX",
         description:
             "A mobile app prototype for Kuching's Autonomous Rapid Transit (ART) system, designed in Figma. Its main feature is an interactive map where users can filter places of interest and view route details. The app also suggests the nearest stations and lets users book tickets.",
-        type: "Group project — UI/UX course",
+        type: "Group project - UI/UX course",
         tools: "Figma",
         contribution:
             "Designed the screen for filtering places of interest on the map in Figma and prepared the final report.",
@@ -54,7 +54,7 @@ const projects = [
         category: "Java",
         description:
             "A desktop application built in Java for SDG 3 (Health Education), helping users learn about health through quizzes and interactive learning activities.",
-        type: "Group project — Java Programming course",
+        type: "Group project - Java Programming course",
         tools: "Visual Studio Code and UML",
         contribution:
             "A Java desktop application developed to promote health education through interactive quizzes. It includes a quiz engine that evaluates users' answers, calculates scores and supports learning through health-related questions.",
@@ -67,7 +67,7 @@ const projects = [
         category: "Database",
         description:
             "SHAA is a database-driven auction management system for Sarawak heritage items. It manages auction items, users and categories, while providing reports on bidding records, completed orders and popular auction items using PHP and MySQL.",
-        type: "Group project — Database Concept and Design course",
+        type: "Group project - Database Concept and Design course",
         tools: "PHP, MySQL, phpMyAdmin",
         contribution:
             "Worked on the database and system features for managing users, auction items, categories, and reports.",
@@ -80,7 +80,7 @@ const projects = [
         category: "Game Development",
         description:
             "Stickman Environmental Quest is a 2D retro-inspired game developed for the Computer Graphics course. Built using C/C++ and OpenGL, the game focuses on environmental conservation and features player controls, enemies, a scoring system, health indicators, and game levels.",
-        type: "Group project — Computer Graphics course",
+        type: "Group project - Computer Graphics course",
         tools: "C/C++, OpenGL",
         contribution:
             "Contributed to coding the game using C/C++ and OpenGL, and participated in preparing and delivering the project presentation.",
@@ -575,9 +575,9 @@ function initCopyEmail() {
    12. START EVERYTHING
 ===================================== */
 
-// Each feature runs inside try/catch, so one failing feature cannot stop the others.
-// The order matters: project cards must exist before the scroll reveal looks for them.
+// Start all portfolio features after the page is ready
 function init() {
+     // List of features used in my portfolio
     const features = [
         initFooterYear,
         initMobileMenu,
